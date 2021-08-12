@@ -711,6 +711,42 @@ BFS(graph2, 'A')
     D
 
 
+```python
+def bfs_with_path_tracking(graph, source, target):
+    queue, visited, parent = deque(), set(), dict()
+    
+    queue.append(source)
+    visited.add(source)
+    parent[source] = source
+    
+    while queue:
+        current_node = queue.popleft()
+        
+        if current_node == target:
+            break
+        
+        for neighbour in graph[current_node]:
+            if neighbour not in visited:
+                visited.add(neighbour)
+                queue.append(neighbour)
+                parent[neighbour] = current_node
+    
+    if target not in parent:
+        raise ValueError(f"Target {target} not found")
+    
+    path = deque(target)
+    while path[0] != source:
+        path.appendleft(parent[path[0]])
+        
+    return list(path)
+    
+                
+print(bfs_with_path_tracking(graph3, 'A', 'E'))
+```
+
+    ['A', 'B', 'E']
+
+
 ### DFS
 
 
