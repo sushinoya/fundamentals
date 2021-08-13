@@ -804,6 +804,39 @@ DFS(graph3, 'A')
     C
 
 
+
+```python
+def dfs_all_paths(graph, source, target):
+    visited = set()
+    paths = []
+    
+    def dfs_helper(path):
+        last_node = path[-1]
+        
+        if last_node in visited:
+            return
+        
+        if last_node == target:
+            paths.append(path)
+            return
+            
+        
+        visited.add(last_node)
+        
+        for neighbour in graph[last_node]:
+            dfs_helper(path + [neighbour])
+        
+        visited.remove(last_node)
+    
+    dfs_helper([source])
+    
+    return paths
+
+
+dfs_all_paths(graph3, 'A', 'D')
+```
+    [['A', 'B', 'E', 'D'], ['A', 'D']]
+
 ### Incorrect DFS (replacing queue with stack)
 
 
